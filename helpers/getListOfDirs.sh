@@ -1,0 +1,26 @@
+#! /bin/sh -
+
+if [ "X-h" = "X$1" ];
+then
+  printf "Help stuff";
+fi
+
+httpdRootDir=$(sh ${0%/*}/getHttpdRootDir.sh);
+dir=$1
+
+if [ -z "$dir" ];
+then
+  findCommand="sudo find ${httpdRootDir} -mindepth 2 -maxdepth 2 -type d -print";
+else
+  findCommand="sudo find ${httpdRootDir} -mindepth 2 -maxdepth 2 -type d -name *${dir}* -print";
+fi
+
+sitePath=$($findCommand);
+
+if [ -z "$sitePath" ];
+then
+  printf "The directory you entered %s does not exist.\n" "$dir" >&2&
+  exit 1;
+else
+  printf "%s" "$(printf "${sitePath}" | sed "s/$(sh ${0%/*}/getHttpdRootDir.sh -e)\///g")";
+fi
