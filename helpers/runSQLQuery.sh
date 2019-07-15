@@ -40,7 +40,7 @@ host = $host
 EOF
   umask $oldUmask;
   # Note: -Be 'B' Removes output formating 's' Removes header 'e' Executes commands seperated by ';'
-  result=$(mysql --defaults-extra-file=$tmpFile ${dbName} -Bse "${sqlQuery}" 2> /dev/null);
+  result=$(mysql --defaults-extra-file=$tmpFile ${dbName} -e "${sqlQuery}" 2> /dev/null);
 
   # if [ -z "${result}" ];
   # then
