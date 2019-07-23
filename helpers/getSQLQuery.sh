@@ -1,4 +1,5 @@
 #! /bin/sh -
+
 if [ "X-h" = "X$1" ];
 then
   printf "Help stuff";
@@ -42,13 +43,12 @@ EOF
   # Note: -Be 'B' Removes output formating 's' Removes header 'e' Executes commands seperated by ';'
   result=$(mysql --defaults-extra-file=$tmpFile ${dbName} -Bse "${sqlQuery}" 2> /dev/null);
 
-  # if [ -z "${result}" ];
-  # then
-  #   # TODO add exception for result less queries
-  #   logger -s "An error occured when we tried to query the DB.";
-  # fi
+  if [ -z "${result}" ];
+  then
+    logger -s "An error occured when we tried to query the DB."&
+  fi
 else
-  logger -s "We need more information to connect to the DB.";
+  logger -s "We need more information to connect to the DB."&
 fi
   
 rm -rf "$tmpFile";
