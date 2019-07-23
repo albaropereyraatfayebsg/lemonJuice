@@ -14,10 +14,13 @@ httpdRootDir=$(grep "^\s*DocumentRoot" $(find /etc/apache2 -name '*default*.conf
 
 if [ "X-h" = "X$1" ];
 then
-  printf "This script prints the httpd DocumentRoot. Notce, it only gathers\n";
-  printf "Default values and rejects ssl configs to get what is mostlikely\n";
-  printf "the most accurate value.\n";
-  printf " -e Use the e option for escaped root httpd directory.\n";
+  cat <<EOF
+      This script prints the httpd DocumentRoot. Notce, it only gathers 
+      Default values and rejects ssl configs to get what is mostlikely
+      the most accurate value.
+ -e   Use the e option for escaped root httpd directory.
+EOF
+  
 elif [ "X-e" = "X$1" ];
 then
   escapedHttpdRootDir=$(printf "%s" "$httpdRootDir" | sed 's/\//\\\//g');

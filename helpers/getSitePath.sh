@@ -1,17 +1,27 @@
 #! /bin/sh -
 if [ "X-h" = "X$1" ];
 then
-  printf "Help stuff";
+  cat <<EOF
+Help stuff
+EOF
+
 elif [ -z "$1" ];
 then
+  while
   printf "Enter the name of the directory you woud like to get the site patht for: ";
   read dir;
+  [ -z "$dir" ]
+  do :; done;
 else
   dir="$1";
 fi
 
+# vars
+findDepth=2;
+
 httpdRootDir=$(sh ${0%/*}/getHttpdRootDir.sh);
-sitePath=$(sudo find ${httpdRootDir} -maxdepth 2 -type d -name ${dir} -print);
+sitePath=$(sudo find ${httpdRootDir} -maxdepth $findDepth -type d -name ${dir} -print);
+
 if [ -z "$sitePath" ];
 then
   logger -s "The directory you entered: $dir does not exist.";

@@ -2,22 +2,28 @@
 
 if [ "X-h" = "X$1" ];
 then
-  printf "Help stuff";
+  cat <<EOF
+Help stuff
+EOF
 elif [ -z "$1" ];
 then
+  while
   printf "Enter the name of the directory you woud like to get the Sugar settings for: ";
   read dir;
+  [ -z "$dir" ]
+  do :; done;
 else
   dir="$1";
 fi
-# get rid of current $1
-shift;
 
-if [ -z "$*" ];
+# Just look for the next value
+if [ -z "$2" ];
 then
   printf "You must enter a query (ex SELECT * FROM foo WHERE bar =\\\"string\\\";): \n";
   exit 1;
 else
+  # get rid of current $1
+  shift;
   sqlQuery="$*";
 fi
 

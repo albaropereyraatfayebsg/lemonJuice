@@ -1,11 +1,17 @@
 #! /bin/sh -
+
 if [ "X-h" = "X$1" ];
 then
-  printf "Help stuff";
+  cat <<EOF
+Help stuff
+EOF
 elif [ -z "$1" ];
 then
+  while
   printf "Enter the name of the directory you woud like to get the Sugar path for: ";
   read dir;
+  [ -z "$dir" ]
+  do :; done;
 else
   dir="$1";
 fi

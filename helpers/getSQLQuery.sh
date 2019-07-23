@@ -2,7 +2,10 @@
 
 if [ "X-h" = "X$1" ];
 then
-  printf "Help stuff";
+  cat <<EOF
+Help stuff
+EOF
+  
 elif [ -z "$1" ];
 then
   while

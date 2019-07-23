@@ -2,17 +2,20 @@
 
 if [ "X-h" = "X$1" ];
 then
-  printf "Help stuff";
-fi
+  cat <<EOF
+Help stuff
+EOF
 
+fi
+findDepth=2;
 httpdRootDir=$(sh ${0%/*}/getHttpdRootDir.sh);
 dir=$1
 
 if [ -z "$dir" ];
 then
-  findCommand="sudo find ${httpdRootDir} -mindepth 2 -maxdepth 2 -type d -print";
+  findCommand="sudo find ${httpdRootDir} -mindepth 2 -maxdepth ${findDepth} -type d -print";
 else
-  findCommand="sudo find ${httpdRootDir} -mindepth 2 -maxdepth 2 -type d -name *${dir}* -print";
+  findCommand="sudo find ${httpdRootDir} -mindepth 2 -maxdepth ${findDepth} -type d -name *${dir}* -print";
 fi
 
 sitePath=$($findCommand);
